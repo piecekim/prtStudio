@@ -4,6 +4,7 @@ import pandas as pd
 import logging
 import psycopg2
 
+# 주석
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
