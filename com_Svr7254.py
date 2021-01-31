@@ -104,6 +104,9 @@ def inquiry(m_start,m_end):
 
  
 # code = itemcode("A027050")
- 
-inquiry(20170103,20170108)
 
+# inquiry(20170103,20170108)
+
+sql2  =   "insert into prt_studio.추세_개인 (종목코드, 일자, 누적합계) values ('A027050', '20200120', 89999)"
+cur.execute(sql2)
+conn.commit()
