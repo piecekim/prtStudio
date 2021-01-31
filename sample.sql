@@ -87,3 +87,9 @@ from
 	종목코드
 where 1=1
 and 종목코드 = 'A000020'
+
+
+
+Individual supply and demand trend analysis
+
+indiSupplyAnaltsis.py
