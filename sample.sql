@@ -8,7 +8,7 @@ order by
 	일자
 ;
 
--- 1. 당일매수매도량
+-- 1. 당일매수매도량 TodaySellAndBuy
 select 
 	개인
 from
@@ -92,4 +92,4 @@ and 종목코드 = 'A000020'
 
 Individual supply and demand trend analysis
 
-indiSupplyAnaltsis.py
+SupplyAnaltsis_indi.py

@@ -5,7 +5,7 @@ import logging
 import psycopg2
 import pymysql
 
-########################################## 추세_개인 ##########################################
+########################################## 추세_투자신탁 ##########################################
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -25,10 +25,10 @@ cur = conn.cursor()
 #     print("PLUS가 정상적으로 연결되지 않음. ")
 #     exit()
 
-# 추세 개인 테이블에 데이터를 insert 하기 위한 함수
+# 추세 투자신탁 테이블에 데이터를 insert 하기 위한 함수
 def TodaySellAndBuy(code, inDate): 
      # SQL문 실행
-    sql =   " select 개인"
+    sql =   " select 투신"
     sql +=  " from prt_studio.svr7254 ss"
     sql +=  " where 1=1"
     sql +=  " and ss.종목코드='" + code + "'"
@@ -69,7 +69,7 @@ def TodaySellAndBuy(code, inDate):
         sqlSum += "    select "
         sqlSum += "        A.*"
         sqlSum += "    from"
-        sqlSum += "        prt_studio.추세_개인 A"
+        sqlSum += "        prt_studio.추세_투자신탁 A"
         sqlSum += "    where 1=1"
         sqlSum += "    and A.종목코드 = '" + code + "'"
         sqlSum += "    and A.일자 < '" + inDate + "'"
@@ -123,7 +123,7 @@ def TodaySellAndBuy(code, inDate):
         sql5Avg += "        select "
         sql5Avg += "            A.*"
         sql5Avg += "        from"
-        sql5Avg += "            prt_studio.추세_개인 A"
+        sql5Avg += "            prt_studio.추세_투자신탁 A"
         sql5Avg += "        where 1=1"
         sql5Avg += "        and A.종목코드 = '" + code + "'"
         sql5Avg += "        and A.일자 < '" + inDate + "'"
@@ -149,7 +149,7 @@ def TodaySellAndBuy(code, inDate):
         sql20Avg += "        select "
         sql20Avg += "            A.*"
         sql20Avg += "        from"
-        sql20Avg += "            prt_studio.추세_개인 A"
+        sql20Avg += "            prt_studio.추세_투자신탁 A"
         sql20Avg += "        where 1=1"
         sql20Avg += "        and A.종목코드 = '" + code + "'"
         sql20Avg += "        and A.일자 < '" + inDate + "'"
@@ -175,7 +175,7 @@ def TodaySellAndBuy(code, inDate):
         sql60Avg += "        select "
         sql60Avg += "            A.*"
         sql60Avg += "        from"
-        sql60Avg += "            prt_studio.추세_개인 A"
+        sql60Avg += "            prt_studio.추세_투자신탁 A"
         sql60Avg += "        where 1=1"
         sql60Avg += "        and A.종목코드 = '" + code + "'"
         sql60Avg += "        and A.일자 < '" + inDate + "'"
@@ -201,7 +201,7 @@ def TodaySellAndBuy(code, inDate):
         sql120Avg += "        select "
         sql120Avg += "            A.*"
         sql120Avg += "        from"
-        sql120Avg += "            prt_studio.추세_개인 A"
+        sql120Avg += "            prt_studio.추세_투자신탁 A"
         sql120Avg += "        where 1=1"
         sql120Avg += "        and A.종목코드 = '" + code + "'"
         sql120Avg += "        and A.일자 < '" + inDate + "'"
@@ -227,7 +227,7 @@ def TodaySellAndBuy(code, inDate):
         sql240Avg += "        select "
         sql240Avg += "            A.*"
         sql240Avg += "        from"
-        sql240Avg += "            prt_studio.추세_개인 A"
+        sql240Avg += "            prt_studio.추세_투자신탁 A"
         sql240Avg += "        where 1=1"
         sql240Avg += "        and A.종목코드 = '" + code + "'"
         sql240Avg += "        and A.일자 < '" + inDate + "'"
@@ -246,7 +246,7 @@ def TodaySellAndBuy(code, inDate):
         else :
             추세240일 = 0
 
-        sqlInsert = "insert into prt_studio.추세_개인 ("
+        sqlInsert = "insert into prt_studio.추세_투자신탁 ("
         sqlInsert += "    종목코드"
         sqlInsert += "    , 일자"
         sqlInsert += "    , 매수매도량"
