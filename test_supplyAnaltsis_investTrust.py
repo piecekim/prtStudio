@@ -284,7 +284,7 @@ def TodaySellAndBuy(code, inDate):
     # conn.commit()
 
 # svr7254 테이블에서 기준 데이터(코드,일자)를 가지고 오는 함수
-def getCodeDateData():
+def getCodeDateData(code):
     # SQL문 실행
     sql =  "select"
     sql += "    종목코드"
@@ -293,7 +293,7 @@ def getCodeDateData():
     sql += "    prt_studio.svr7254"
     sql += " where 1=1"
     # sql += " and 일자 between '20040101' and '20041231' "
-    sql += " and 종목코드 = 'A005930'"
+    sql += " and 종목코드 = '" + code+ "'"
     sql += " group by "
     sql += "    종목코드, 일자 "
     sql += " order by "
@@ -305,5 +305,10 @@ def getCodeDateData():
     for data in datas:
         TodaySellAndBuy(data[0], data[1])
 
-getCodeDateData()
+sql =  "select 종목코드 from prt_studio.종목코드"
+
+cur.execute(sql)
+datas = cur.fetchall()
+for data in datas:
+    getCodeDateData(data[0])
 # TodaySellAndBuy('A005930','20160106')
