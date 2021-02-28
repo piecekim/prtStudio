@@ -29,7 +29,7 @@ cur = conn.cursor()
 def TodaySellAndBuy(code, inDate): 
      # SQL문 실행
     sql =   "select " 
-    sql +=  "    * "
+    sql +=  "    기타금융 "
     sql +=  "from  "
     sql +=  "    prt_studio.svr7254 s  "
     sql +=  "where 1=1 "
