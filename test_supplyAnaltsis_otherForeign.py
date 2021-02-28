@@ -28,11 +28,21 @@ cur = conn.cursor()
 # 추세 기타외인 테이블에 데이터를 insert 하기 위한 함수
 def TodaySellAndBuy(code, inDate): 
      # SQL문 실행
-    sql =   " select 기타외인"
-    sql +=  " from prt_studio.svr7254 ss"
-    sql +=  " where 1=1"
-    sql +=  " and ss.종목코드='" + code + "'"
-    sql +=  " and ss.일자='" + inDate + "'"
+    sql =   "select " 
+    sql +=  "    * "
+    sql +=  "from  "
+    sql +=  "    prt_studio.svr7254 s  "
+    sql +=  "where 1=1 "
+    sql +=  "and s.종목코드='" + code + "'"
+    sql +=  "and s.일자='" + inDate + "'"
+    sql +=  "and not exists ( select "
+    sql +=  "                    * "
+    sql +=  "                from  "
+    sql +=  "                    prt_studio.추세_기타외인 a  "
+    sql +=  "                 where 1=1 "
+    sql +=  "                and a.종목코드 = s.종목코드 "
+    sql +=  "                and a.일자 = s.일자  "
+    sql +=  "                )      "
     cur.execute(sql)
 
     # 데이터 Fetch
