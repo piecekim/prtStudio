@@ -305,10 +305,21 @@ def getCodeDateData(code):
     for data in datas:
         TodaySellAndBuy(data[0], data[1])
 
-sql =  "select 종목코드 from prt_studio.종목코드"
+sql =  "select "
+sql +=  "	종목코드  "
+sql +=  "from "
+sql +=  "	prt_studio.svr7254 A "    
+sql +=  "where 1=1 "
+sql +=  "and not exists ( "
+sql +=  "	select "
+sql +=  "		* "
+sql +=  "	from "
+sql +=  "		prt_studio.추세_국가지자체 s "
+sql +=  "	where 1=1 "
+sql +=  "	and s.종목코드 = a.종목코드 "
+sql +=  ")"
 
 cur.execute(sql)
 datas = cur.fetchall()
 for data in datas:
     getCodeDateData(data[0])
-# TodaySellAndBuy('A005930','20160106')
