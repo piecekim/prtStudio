@@ -25,6 +25,7 @@ cur = conn.cursor()
 #     print("PLUS가 정상적으로 연결되지 않음. ")
 #     exit()
 
+
 # 추세 연기금 테이블에 데이터를 insert 하기 위한 함수
 def TodaySellAndBuy(code, inDate): 
      # SQL문 실행
@@ -44,6 +45,8 @@ def TodaySellAndBuy(code, inDate):
     sql +=  "                and a.일자 = s.일자  "
     sql +=  "                )      "
     cur.execute(sql)
+
+    print("code : " + code + "   date : " + inDate)
 
     # 데이터 Fetch
     datas = []
@@ -328,8 +331,10 @@ sql +=  "		prt_studio.추세_연기금 s "
 sql +=  "	where 1=1 "
 sql +=  "	and s.종목코드 = a.종목코드 "
 sql +=  ")"
+sql +=  "group by 종목코드"
 
 cur.execute(sql)
 datas = cur.fetchall()
 for data in datas:
+    print("종목코드 : " + data[0])
     getCodeDateData(data[0])
