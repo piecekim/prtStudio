@@ -45,6 +45,8 @@ def TodaySellAndBuy(code, inDate):
     sql +=  "                )      "
     cur.execute(sql)
 
+    print("code : " + code + "    date : " + inDate)
+
     # 데이터 Fetch
     datas = []
     data = []
@@ -327,8 +329,10 @@ sql +=  "		prt_studio.추세_금융투자 s "
 sql +=  "	where 1=1 "
 sql +=  "	and s.종목코드 = a.종목코드 "
 sql +=  ")"
+sql +=  "group by 종목코드"
 
 cur.execute(sql)
 datas = cur.fetchall()
 for data in datas:
+    print("종목코드 : "+ data[0])
     getCodeDateData(data[0])

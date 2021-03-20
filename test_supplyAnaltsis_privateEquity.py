@@ -328,6 +328,7 @@ sql +=  "		prt_studio.추세_사모펀드 s "
 sql +=  "	where 1=1 "
 sql +=  "	and s.종목코드 = a.종목코드 "
 sql +=  ")"
+sql +=  "group by 종목코드"
 
 cur.execute(sql)
 datas = cur.fetchall()
