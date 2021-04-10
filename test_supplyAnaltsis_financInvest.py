@@ -46,7 +46,7 @@ def TodaySellAndBuy(code, inDate):
     sql +=  "                )      "
     cur.execute(sql)
 
-    print("code : " + code + "    date : " + inDate)
+    print("금융투자 code : " + code + "    date : " + inDate)
 
     # 데이터 Fetch
     datas = []
