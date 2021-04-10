@@ -12,6 +12,8 @@ ch.setLevel(logging.DEBUG)
 #DB 연동
 conn = psycopg2.connect(host='13.124.90.197', dbname='prt_db', user='prt_db', password='1937', port='5432')
 cur = conn.cursor()
+
+#DB 연동 테스트 링크
  
 def subCpCodeMgr():
     # 연결 여부 체크
