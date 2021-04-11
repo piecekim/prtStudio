@@ -27,13 +27,24 @@ cur = conn.cursor()
 
 # 추세 개인 테이블에 데이터를 insert 하기 위한 함수
 def TodaySellAndBuy(code, inDate): 
-     # SQL문 실행
-    sql =   " select 개인"
-    sql +=  " from prt_studio.svr7254 ss"
-    sql +=  " where 1=1"
-    sql +=  " and ss.종목코드='" + code + "'"
-    sql +=  " and ss.일자='" + inDate + "'"
+    sql =   "select " 
+    sql +=  "    개인 "
+    sql +=  "from  "
+    sql +=  "    prt_studio.svr7254 s  "
+    sql +=  "where 1=1 "
+    sql +=  "and s.종목코드='" + code + "'"
+    sql +=  "and s.일자='" + inDate + "'"
+    sql +=  "and not exists ( select "
+    sql +=  "                    * "
+    sql +=  "                from  "
+    sql +=  "                    prt_studio.추세_개인 a  "
+    sql +=  "                 where 1=1 "
+    sql +=  "                and a.종목코드 = s.종목코드 "
+    sql +=  "                and a.일자 = s.일자  "
+    sql +=  "                )      "
     cur.execute(sql)
+
+    print("개인 code : " + code + "    date : " + inDate)
 
     # 데이터 Fetch
     datas = []
@@ -284,7 +295,7 @@ def TodaySellAndBuy(code, inDate):
     # conn.commit()
 
 # svr7254 테이블에서 기준 데이터(코드,일자)를 가지고 오는 함수
-def getCodeDateData():
+def getCodeDateData(code):
     # SQL문 실행
     sql =  "select"
     sql += "    종목코드"
@@ -293,7 +304,7 @@ def getCodeDateData():
     sql += "    prt_studio.svr7254"
     sql += " where 1=1"
     # sql += " and 일자 between '20040101' and '20041231' "
-    sql += " and 종목코드 = 'A005930'"
+    sql += " and 종목코드 = '" + code+ "'"
     sql += " group by "
     sql += "    종목코드, 일자 "
     sql += " order by "
@@ -305,5 +316,50 @@ def getCodeDateData():
     for data in datas:
         TodaySellAndBuy(data[0], data[1])
 
-getCodeDateData()
-# TodaySellAndBuy('A005930','20160106')
+# main 호출용 함수
+def call_개인():
+    sql =  "select "
+    sql +=  "	종목코드  "
+    sql +=  "from "
+    sql +=  "	prt_studio.svr7254 A "    
+    sql +=  "where 1=1 "
+    sql +=  "and not exists ( "
+    sql +=  "	select "
+    sql +=  "		* "
+    sql +=  "	from "
+    sql +=  "		prt_studio.추세_개인 s "
+    sql +=  "	where 1=1 "
+    sql +=  "	and s.종목코드 = a.종목코드 "
+    sql +=  ")"
+    sql +=  "group by 종목코드"
+
+    cur.execute(sql)
+    datas = cur.fetchall()
+    for data in datas:
+        print("종목코드 : "+ data[0])
+        getCodeDateData(data[0])
+
+# # svr7254 테이블에서 기준 데이터(코드,일자)를 가지고 오는 함수
+# def getCodeDateData():
+#     # SQL문 실행
+#     sql =  "select"
+#     sql += "    종목코드"
+#     sql += "    , to_char(일자, 'yyyy-mm-dd') 일자"
+#     sql += " from"
+#     sql += "    prt_studio.svr7254"
+#     sql += " where 1=1"
+#     # sql += " and 일자 between '20040101' and '20041231' "
+#     sql += " and 종목코드 = 'A005930'"
+#     sql += " group by "
+#     sql += "    종목코드, 일자 "
+#     sql += " order by "
+#     sql += "    일자 "
+#     # print(sql)
+    
+#     cur.execute(sql)
+#     datas = cur.fetchall()
+#     for data in datas:
+#         TodaySellAndBuy(data[0], data[1])
+
+# getCodeDateData()
+# # TodaySellAndBuy('A005930','20160106')

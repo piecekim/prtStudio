@@ -46,7 +46,7 @@ def TodaySellAndBuy(code, inDate):
     sql +=  "                )      "
     cur.execute(sql)
 
-    print("금융투자 code : " + code + "    date : " + inDate)
+    print("은행 code : " + code + "    date : " + inDate)
 
     # 데이터 Fetch
     datas = []
@@ -318,23 +318,25 @@ def getCodeDateData(code):
     for data in datas:
         TodaySellAndBuy(data[0], data[1])
 
-sql =  "select "
-sql +=  "	종목코드  "
-sql +=  "from "
-sql +=  "	prt_studio.svr7254 A "    
-sql +=  "where 1=1 "
-sql +=  "and not exists ( "
-sql +=  "	select "
-sql +=  "		* "
-sql +=  "	from "
-sql +=  "		prt_studio.추세_은행 s "
-sql +=  "	where 1=1 "
-sql +=  "	and s.종목코드 = a.종목코드 "
-sql +=  ")"
-sql +=  "group by 종목코드"
+# main 호출용 함수
+def call_은행():
+    sql =  "select "
+    sql +=  "	종목코드  "
+    sql +=  "from "
+    sql +=  "	prt_studio.svr7254 A "    
+    sql +=  "where 1=1 "
+    sql +=  "and not exists ( "
+    sql +=  "	select "
+    sql +=  "		* "
+    sql +=  "	from "
+    sql +=  "		prt_studio.추세_은행 s "
+    sql +=  "	where 1=1 "
+    sql +=  "	and s.종목코드 = a.종목코드 "
+    sql +=  ")"
+    sql +=  "group by 종목코드"
 
-cur.execute(sql)
-datas = cur.fetchall()
-for data in datas:
-    getCodeDateData(data[0])
-# TodaySellAndBuy('A005930','20160106')
+    cur.execute(sql)
+    datas = cur.fetchall()
+    for data in datas:
+        getCodeDateData(data[0])
+    # TodaySellAndBuy('A005930','20160106')
